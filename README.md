@@ -1,2 +1,2 @@
-# Learn-Canvas
+# learn-canvas
 A process of learning canvas
