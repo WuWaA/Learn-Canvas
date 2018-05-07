@@ -50,6 +50,21 @@ function draw() {
         ctx.arc(90, 65, 5, 0, Math.PI * 2, true);
         ctx.stroke();
     }
+
+    var canvas3 = document.getElementById('canvas3');
+    if (canvas3.getContext) {
+        var ctx = canvas3.getContext('2d');
+
+        ctx.fillStyle = "rgb(200, 0, 200)"; //填充颜色测试
+        ctx.arc(100, 5, 10, 0, Math.PI, false); //圆心测试
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(50, 50);
+        ctx.arcTo(50, 50, 100, 100, 30); //???
+        ctx.arcTo(100, 100, 150, 75, 60); //???
+        ctx.stroke();
+    }
 }
 
 window.onload = function () {
