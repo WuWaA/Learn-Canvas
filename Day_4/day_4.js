@@ -40,7 +40,7 @@ var sun = new Image();
 var moon = new Image();
 var earth = new Image();
 
-sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png'; //太阳，自带背景
 moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
 earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
 
@@ -54,34 +54,30 @@ function draw2() {
         ctx.fillStyle = 'rgba(0,0,0,0.4)'; //半透明黑色
         ctx.strokeStyle = 'rgba(0,153,255,0.4)'; //线的颜色
         ctx.save(); //保存上述设置
-        ctx.translate(150, 150); //移动到中央（和moveTo的区别？）
-
-        //init();
+        ctx.translate(150, 150); //移动画布
 
         //地球
         var time = new Date();
         ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds()); //根据时间计算画布旋转
-        ctx.translate(105, 0); //X轴移动105，地球的位置
-        ctx.fillRect(0, -12, 50, 24); //影子
+        ctx.translate(105, 0); //地球的位置
+        ctx.fillRect(0, -12, 50, 24); //阴影
         ctx.drawImage(earth, -12, -12);
 
-        ctx.restore(); //恢复画布及画笔
+        //月亮
+        ctx.save(); //以地球为原点
+        ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
+        ctx.translate(0, 28.5); //和地球的距离
+        ctx.drawImage(moon, -3.5, -3.5);
+        ctx.restore(); //恢复到以地球为原点的配置
 
-        ctx.beginPath();
+        ctx.restore(); //恢复以太阳为原点的画布及画笔设置
+
+        ctx.beginPath(); //开始画线
         ctx.arc(150, 150, 105, 0, Math.PI * 2, false); //地球轨道
-        ctx.stroke();
+        ctx.stroke(); //实际画线
 
         ctx.drawImage(sun, 0, 0, 300, 300); //太阳
 
         window.requestAnimationFrame(draw2);
     }
 }
-
-/*
-function init() {
-    sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
-    moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
-    earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
-    //window.requestAnimationFrame(draw2);
-}
-*/
