@@ -59,6 +59,7 @@ function draw2() {
         //地球
         var time = new Date();
         ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds()); //根据时间计算画布旋转
+        //ctx.rotate(time.getMilliseconds() / 150); //根据时间计算画布旋转
         ctx.translate(105, 0); //地球的位置
         ctx.fillRect(0, -12, 50, 24); //阴影
         ctx.drawImage(earth, -12, -12);
@@ -66,6 +67,7 @@ function draw2() {
         //月亮
         ctx.save(); //以地球为原点
         ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
+        //ctx.rotate(time.getMilliseconds() / 150);
         ctx.translate(0, 28.5); //和地球的距离
         ctx.drawImage(moon, -3.5, -3.5);
         ctx.restore(); //恢复到以地球为原点的配置
