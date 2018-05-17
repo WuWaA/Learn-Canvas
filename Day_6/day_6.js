@@ -29,15 +29,31 @@ function draw() {
     time = new Date();
     if (current != time.getSeconds()) {
         ctx.clearRect(0, 0, cw, ch);
-        if (Y[Y.length - 1] >= ch - 20) {
-            X.push(cw / 2);
-            Y.push(-20);
+
+        //只有一个方块时，检测触底
+        if (X.length == 1) {
+            if (Y[Y.length - 1] == ch - 20) {
+                X.push(cw / 2);
+                Y.push(-20);
+            }
         }
+
+        //大于一个方块时
         if (X.length > 1) {
             for (var i = 0; i < X.length - 1; i++) {
+                //画出其他方块
                 ctx.fillRect(X[i], Y[i], 20, 20);
-                //检测触底，包括方块，触底则出新方块
-                if ((X[X.length - 1] == X[i] && Y[Y.length - 1] >= Y[i] - 20) || (Y[Y.length - 1] >= ch - 20)) {
+
+                //检测触底，以及，检测下方方块，触底/触块则出新方块
+                if ((X[X.length - 1] == X[i] && Y[Y.length - 1] == Y[i] - 20) || (Y[Y.length - 1] == ch - 20)) {
+                    //检测触顶
+                    if (X[X.length - 1] == cw / 2 && Y[Y.length - 1] == 0) {
+                        ctx.fillRect(X[X.length - 1], Y[Y.length - 1], 20, 20);
+                        ctx.fillStyle = 'rgb(255, 0, 0)';
+                        ctx.fillText('Game End', 20, 20);
+                        return;
+                    }
+                    console.log('AO');
                     X.push(cw / 2);
                     Y.push(-20);
                 }
@@ -67,6 +83,7 @@ function draw() {
     window.requestAnimationFrame(draw);
 }
 
+//键盘操作后，刷新画布
 function idraw() {
     ctx.clearRect(0, 0, cw, ch);
     if (X.length > 1) {
@@ -77,9 +94,10 @@ function idraw() {
     ctx.fillRect(X[X.length - 1], Y[Y.length - 1], 20, 20);
 }
 
+//键盘操作
 function doKeydown(e) {
     var keyID = e.keyCode;
-    if (keyID == 32 && bool == true) { //空格
+    if (keyID === 32 && bool == true) { //空格
         ctx.clearRect(0, 0, cw, ch);
         X = [cw / 2];
         Y = [-20];
