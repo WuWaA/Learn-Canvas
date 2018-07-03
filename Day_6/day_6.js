@@ -142,7 +142,7 @@ function doKeydown(e) {
         draw();
     }
     /*
-    if (keyID === 38 || keyID === 87) { // 上箭头和W
+    if (keyID === 38 || keyID === 87) { //上箭头和W
         e.preventDefault(); //取消事件的默认动作
     }
     */
